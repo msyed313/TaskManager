@@ -23,12 +23,11 @@ const Login = ({navigation}) => {
 
     const handleLogin = async () => {
         try {
-          //const response = await fetch(`${Api}/User/Login?pname=${pname}&password=${password}`);
-          //const data = await response.json();
-         // const pid=data.Pid;
-          if (pname=='msyed' & password=='msyed') {
+          const response = await fetch(`${Api}/User/Login?pname=${pname}&password=${password}`);
+          const data = await response.json();
+           const pid=data.Pid;
+          if (response.ok) {
             // Save player information in async storage
-            const data={'name':pname,'password':password}
              try {
               await AsyncStorage.setItem('user', JSON.stringify(data));
               navigation.navigate('home')
@@ -37,15 +36,15 @@ const Login = ({navigation}) => {
               console.log(e)
              } 
           } else {
-            //console.log('Error', data);
-            setError('username or password is incorrect')
+            console.log('Error', data);
+            setError(data)
             console.log(error);
             
           }
           
         } catch (error) {
           console.log('Error', 'An error occurred while logging in.');
-          //console.error('Login Error:', error);
+          console.error('Login Error:', error);
         }
       };
 
