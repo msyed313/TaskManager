@@ -1,0 +1,1 @@
+export const Api='http://192.168.10.10/CandySmash/api';
